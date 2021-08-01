@@ -1,0 +1,38 @@
+.spaced {
+    margin-top: 8%;
+}
+
+.flexy {
+    display: flex;
+    justify-content: center;
+}
+
+.tbl {
+    justify-content: center;
+}
+
+.list {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.w {
+    font-weight: 900;
+    font-size: 105%;
+}
+
+.i {
+    margin-top: -1%;
+    margin-bottom: 5%;
+}
+
+.minh {
+    min-height: 300px;
+}
+
+.err {
+    position: absolute;
+    color: red;
+    font-size: .8rem;
+
+}

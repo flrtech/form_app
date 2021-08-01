@@ -1,0 +1,31 @@
+{
+    "clients": [
+        {
+            "name": "Jenny Doe",
+            "state": "Kentucky",
+            "phone": "445-312-8898",
+            "address": "7th Maryland St.",
+            "city": "Louisville",
+            "ssn": "323-14-1997",
+            "id": 1
+        },
+        {
+            "name": "Mike Ross",
+            "state": "New York State",
+            "phone": "831-222-9088",
+            "address": "2nd Jocelyn St.",
+            "city": "New York",
+            "ssn": "118-34-1976",
+            "id": 2
+        },
+        {
+            "name": "Larry Page",
+            "state": "Alabama",
+            "phone": "450-003-1904",
+            "address": "4th Menelaus St.",
+            "city": "Birmingham",
+            "ssn": "010-54-1988",
+            "id": 3
+        }
+    ]
+}
