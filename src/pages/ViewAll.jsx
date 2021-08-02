@@ -13,7 +13,7 @@ const ViewAll = () => {
         <>
             {isLoading && <div className="list"><Loading /></div>}
             {clients.length && <div className="list">
-                <div className="ui centered segment">
+                <div className="ui centered segment" >
                     <div className="ui relaxed list">
                         <ClientList clients={clients} />
                     </div>

@@ -6,7 +6,7 @@ export const GetClients = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        firebase
+        const unsubscribe = firebase
             .firestore()
             .collection('clients')
             .onSnapshot((snapshot) => {
@@ -17,6 +17,7 @@ export const GetClients = () => {
                 setClients(newClients);
                 setIsLoading(false);
             });
+        return () => unsubscribe();
     }, []);
     return [clients, isLoading];
 };

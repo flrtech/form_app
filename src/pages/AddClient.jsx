@@ -45,7 +45,7 @@ const AddClient = () => {
     };
 
     return (
-        <div className="ui grid flexy" style={{ marginTop: "6%" }}>
+        <div className="ui grid flexy" >
             <div className="ui ten wide column">
                 <Formik
                     initialValues={initialValues}
@@ -60,6 +60,7 @@ const AddClient = () => {
                                 }
                             );
                         setSubmitted(true);
+                        setTimeout(() => setSubmitted(false), 3000);
                         actions.resetForm(initialValues);
 
                     }}

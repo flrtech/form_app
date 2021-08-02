@@ -14,7 +14,7 @@ import {
 const App = () => {
 
   return (
-    <div className="container">
+    <div >
       <Router>
         <Navbar />
         <Switch>

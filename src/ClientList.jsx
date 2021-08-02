@@ -1,6 +1,9 @@
 import React from 'react';
+import firebase from './firebase';
 
 const ClientList = ({ clients }) => {
+
+
     return (
         <div>
             {clients.map((client) => (
@@ -58,7 +61,10 @@ const ClientList = ({ clients }) => {
                         <div className="content">
                             <div
                                 className="ui negative button"
-
+                                onClick={() => {
+                                    const db = firebase.firestore();
+                                    db.collection('clients').doc(client.id).delete();
+                                }}
                             >
                                 Delete
                             </div>
