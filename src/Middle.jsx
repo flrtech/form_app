@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Middle = () => {
     return (
@@ -27,9 +28,9 @@ const Middle = () => {
                                 <i className="address book icon"></i>
                                 Add New Client
                             </div>
-                            <div className="ui primary button">
-                                Create
-                            </div>
+                            <NavLink to="/add" className="ui primary button">
+                                Add
+                            </NavLink>
                         </div>
                     </div>
                 </div>
