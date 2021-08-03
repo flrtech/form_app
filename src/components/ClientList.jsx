@@ -2,10 +2,10 @@ import React from "react";
 import Scroll from "./Scroll";
 import Client from "./Client";
 
-const ClientList = ({ clients }) => {
+const ClientList = ({ clients, vh }) => {
   return (
     <div>
-      <Scroll>
+      <Scroll vh={vh}>
         {clients.map((client) => (
           <div className="item" key={client.id}>
             <Client client={client} />

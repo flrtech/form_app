@@ -1,9 +1,9 @@
 import React from "react";
-import Home from "./pages/Home";
-import AddClient from "./pages/AddClient";
-import Statistics from "./pages/Statistics";
-import ViewAll from "./pages/ViewAll";
-import Navbar from "./Navbar/Navbar";
+import Home from "./components/pages/Home";
+import AddClient from "./components/pages/AddClient";
+import Statistics from "./components/pages/Statistics";
+import ViewAll from "./components/pages/ViewAll";
+import Navbar from "./components/Navbar/Navbar";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
