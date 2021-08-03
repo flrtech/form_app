@@ -1,5 +1,5 @@
 .spaced {
-  margin-top: 8%;
+  margin-top: 5%;
 }
 
 .flexy {
@@ -42,4 +42,10 @@
 
 .ui.table tr td {
   border-top: 0px !important;
+}
+
+.home {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
 }

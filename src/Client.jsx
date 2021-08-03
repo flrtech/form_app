@@ -54,7 +54,7 @@ const Client = ({ client }) => {
                 `${client.firstName} ${client.lastName}`}
               {edit.includes(client.id) && (
                 <>
-                  <div className="ui fluid large input">
+                  <div className="ui fluid input">
                     <input
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
