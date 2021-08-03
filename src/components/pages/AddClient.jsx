@@ -1,138 +1,157 @@
-import React, { useState } from 'react';
-import firebase from '../firebase';
+import React, { useState } from "react";
+import firebase from "../firebase";
 import { Formik, Form } from "formik";
-import * as yup from 'yup';
-import TextField from '../TextField';
+import * as yup from "yup";
+import TextField from "../TextField";
 import "../home.css";
+import GetStats from "../GetStats";
 
 const AddClient = () => {
-    const [submitted, setSubmitted] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [stats, isLoading] = GetStats();
 
-    const validate = yup.object({
-        firstName: yup.string()
-            .max(40, "Must be 40 characters or less")
-            .required("*required field"),
-        lastName: yup.string()
-            .max(40, "Must be 40 characters or less")
-            .required("*required field"),
-        address: yup.string()
-            .max(40, "Must be 40 characters or less")
-            .required("*required field"),
-        city: yup.string()
-            .max(40, "Must be 40 characters or less"),
-        state: yup.string()
-            .max(40, "Must be 40 characters or less"),
-        phone: yup.string()
-            .matches(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/, "Phone number is invalid")
-            .required("*required field"),
-        ssn: yup.string()
-            .matches(/^\d{3}-?\d{2}-?\d{4}$/, "SSN is invalid")
-            .required("*required field"),
-        licensePlate: yup.string()
-            .max(10, "Must be 10 characters or less")
-            .required("*required field"),
-    });
+  const validate = yup.object({
+    firstName: yup
+      .string()
+      .max(40, "Must be 40 characters or less")
+      .required("*required field"),
+    lastName: yup
+      .string()
+      .max(40, "Must be 40 characters or less")
+      .required("*required field"),
+    address: yup
+      .string()
+      .max(40, "Must be 40 characters or less")
+      .required("*required field"),
+    city: yup.string().max(40, "Must be 40 characters or less"),
+    state: yup.string().max(40, "Must be 40 characters or less"),
+    phone: yup
+      .string()
+      .matches(
+        /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
+        "Phone number is invalid"
+      )
+      .required("*required field"),
+    ssn: yup
+      .string()
+      .matches(/^\d{3}-?\d{2}-?\d{4}$/, "SSN is invalid")
+      .required("*required field"),
+    licensePlate: yup
+      .string()
+      .max(10, "Must be 10 characters or less")
+      .required("*required field"),
+  });
 
-    const initialValues = {
-        firstName: '',
-        lastName: '',
-        address: '',
-        city: '',
-        state: '',
-        phone: '',
-        ssn: '',
-        licensePlate: ''
-    };
+  const initialValues = {
+    firstName: "",
+    lastName: "",
+    address: "",
+    city: "",
+    state: "",
+    phone: "",
+    ssn: "",
+    licensePlate: "",
+  };
 
-    return (
-        <div className="ui grid flexy" >
-            <div className="ui ten wide column">
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={validate}
-                    onSubmit={(values, actions) => {
-                        firebase
-                            .firestore()
-                            .collection("clients")
-                            .add(
-                                {
-                                    ...values
-                                }
-                            );
-                        setSubmitted(true);
-                        setTimeout(() => setSubmitted(false), 3000);
-                        actions.resetForm(initialValues);
-
-                    }}
-                >
-                    {formik => (
-
-                        <div className="ui segment">
-                            <Form
-
-                                className={`ui big form ${submitted && 'success'}`}>
-                                <div className="two fields">
-                                    <TextField
-                                        label="First name"
-                                        name="firstName"
-                                        type="text"
-                                        placeholder="First name" />
-                                    <TextField
-                                        label="Last name"
-                                        name="lastName"
-                                        type="text"
-                                        placeholder="Last name" />
-                                </div>
-                                <TextField
-                                    label="Adress"
-                                    name="address"
-                                    type="text"
-                                    placeholder="Address" />
-                                <div className="two fields">
-                                    <TextField
-                                        label="City"
-                                        name="city"
-                                        type="text"
-                                        placeholder="City" />
-                                    <TextField
-                                        label="State"
-                                        name="state"
-                                        type="text"
-                                        placeholder="State" />
-                                </div>
-                                <TextField
-                                    label="Phone"
-                                    name="phone"
-                                    type="text"
-                                    placeholder="Phone number" />
-                                <TextField
-                                    label="Social Security Number"
-                                    name="ssn"
-                                    type="text"
-                                    placeholder="SSN" />
-                                <TextField
-                                    label="License plate"
-                                    name="licensePlate"
-                                    type="text"
-                                    placeholder="License plate" />
-                                <div className="ui success message">
-                                    <div className="header">Success!</div>
-                                    <p>Your data was sent to our servers</p>
-                                </div>
-                                <button type="submit" className="fluid ui primary button">Add</button>
-                            </Form>
-                        </div>
-
-                    )}
-                </Formik>
+  return (
+    <div className="ui grid flexy">
+      <div className="ui ten wide column">
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validate}
+          onSubmit={(values, actions) => {
+            firebase
+              .firestore()
+              .collection("clients")
+              .add({
+                ...values,
+              });
+            setSubmitted(true);
+            setTimeout(() => setSubmitted(false), 3000);
+            actions.resetForm(initialValues);
+            if (!isLoading) {
+              const db = firebase.firestore();
+              db.collection("stats")
+                .doc("clientStats")
+                .set({
+                  deleted: stats.deleted,
+                  total: stats.total + 1,
+                  edited: stats.edited,
+                });
+            }
+          }}>
+          {(formik) => (
+            <div className="ui segment">
+              <Form className={`ui big form ${submitted && "success"}`}>
+                <div className="two fields">
+                  <TextField
+                    label="First name"
+                    name="firstName"
+                    type="text"
+                    placeholder="First name"
+                  />
+                  <TextField
+                    label="Last name"
+                    name="lastName"
+                    type="text"
+                    placeholder="Last name"
+                  />
+                </div>
+                <TextField
+                  label="Adress"
+                  name="address"
+                  type="text"
+                  placeholder="Address"
+                />
+                <div className="two fields">
+                  <TextField
+                    label="City"
+                    name="city"
+                    type="text"
+                    placeholder="City"
+                  />
+                  <TextField
+                    label="State"
+                    name="state"
+                    type="text"
+                    placeholder="State"
+                  />
+                </div>
+                <TextField
+                  label="Phone"
+                  name="phone"
+                  type="text"
+                  placeholder="Phone number"
+                />
+                <TextField
+                  label="Social Security Number"
+                  name="ssn"
+                  type="text"
+                  placeholder="SSN"
+                />
+                <TextField
+                  label="License plate"
+                  name="licensePlate"
+                  type="text"
+                  placeholder="License plate"
+                />
+                <div className="ui success message">
+                  <div className="header">Success!</div>
+                  <p>Your data was sent to our servers</p>
+                </div>
+                <button type="submit" className="fluid ui primary button">
+                  Add
+                </button>
+              </Form>
             </div>
-        </div>
-    );
+          )}
+        </Formik>
+      </div>
+    </div>
+  );
 };
 
 export default AddClient;
-
-
 
 // import React, { useState } from 'react';
 // import firebase from '../firebase';

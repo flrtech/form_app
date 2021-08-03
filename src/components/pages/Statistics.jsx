@@ -1,9 +1,11 @@
-import React from "react";
+import BarChart from "../BarChart";
+import GetStats from "../GetStats";
 
 const Statistics = () => {
+  const [stats, isLoading] = GetStats();
   return (
-    <div>
-      <h1>Statistics</h1>
+    <div className="ui segment">
+      <BarChart stats={stats} isLoading={isLoading} />
     </div>
   );
 };

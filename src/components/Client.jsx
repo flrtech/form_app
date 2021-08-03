@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import firebase from "./firebase";
 import "./home.css";
+import GetStats from "./GetStats";
 
 const Client = ({ client }) => {
+  const [stats, isLoading] = GetStats();
+
   const [edit, setEdit] = useState([]);
   const [firstName, setFirstName] = useState(client.firstName);
   const [lastName, setLastName] = useState(client.lastName);
@@ -16,6 +19,15 @@ const Client = ({ client }) => {
   const onDelete = () => {
     const db = firebase.firestore();
     db.collection("clients").doc(client.id).delete();
+    if (!isLoading) {
+      db.collection("stats")
+        .doc("clientStats")
+        .set({
+          deleted: stats.deleted + 1,
+          total: stats.total,
+          edited: stats.edited,
+        });
+    }
   };
 
   const onClick = () => {
@@ -41,6 +53,15 @@ const Client = ({ client }) => {
     });
     let newEdit = edit.filter((el) => el !== client.id);
     setEdit(newEdit);
+    if (!isLoading) {
+      db.collection("stats")
+        .doc("clientStats")
+        .set({
+          deleted: stats.deleted,
+          total: stats.total,
+          edited: stats.edited + 1,
+        });
+    }
   };
 
   return (

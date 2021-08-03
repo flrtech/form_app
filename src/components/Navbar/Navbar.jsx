@@ -23,7 +23,7 @@ const Navbar = () => {
       <div className="right menu">
         <NavLink
           to="/add"
-          className="ui positive button "
+          className="ui positive button"
           style={{ fontWeight: "bold", fontSize: 18 }}>
           Add Client
           <i className="right floated icon plus" />
