@@ -13,6 +13,7 @@ import {
 
 const Example = ({ stats, isLoading }) => {
   const added = parseInt(stats.total);
+  const current = parseInt(stats.total) - parseInt(stats.deleted);
   const edited = parseInt(stats.edited);
   const deleted = parseInt(stats.deleted);
 
@@ -20,6 +21,10 @@ const Example = ({ stats, isLoading }) => {
     {
       name: "Total Clients",
       current_number: added,
+    },
+    {
+      name: "Current # of Clients",
+      current_number: current,
     },
     {
       name: "Deleted Clients",
