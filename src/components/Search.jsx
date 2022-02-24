@@ -6,7 +6,7 @@ import "./home.css";
 
 function Search({ searchField }) {
   const [clients, isLoading] = GetClients();
-  const vh = 60;
+  const vh = 50;
 
   const filteredClients = clients.filter((client) => {
     return (
@@ -30,7 +30,7 @@ function Search({ searchField }) {
   });
 
   return (
-    <>
+    <div >
       {searchField.length !== 0 && isLoading && (
         <div className="list">
           <Loading />
@@ -45,7 +45,7 @@ function Search({ searchField }) {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 
